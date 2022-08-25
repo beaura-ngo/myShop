@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="text-center">
+        <h1>Find your product by category</h1>
+    </div>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% for category in categories %}
+        <div class="col mb-5">
+            <div class="card h-100">
+                <div class="card-body p-4">
+                    <div
+                        class="text-center">
+                        <a  href="{{ path('app_category_related', {'name':category.name}) }}">
+                        <h5 class="fw-bolder" >{{ category.name }}</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

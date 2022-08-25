@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceuil
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" url="test.css">
+{% endblock %}
+
+{% block body %}
+	<!-- Header-->
+	<header class="bg-dark py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="text-center text-white">
+				<h1 class="display-4 fw-bolder">Shopping!!!</h1>
+				{% if app.user %}
+					<p class="lead fw-normal text-white-50 mb-0">Hey there {{app.user.userIdentifier}}</p>
+				{% else %}
+					<p class="lead fw-normal text-white-50 mb-0">Come and buy plenty of things!</p>					
+				{% endif %}
+			</div>
+		</div>
+	</header>
+	<!-- Section-->
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5">
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for product in products|slice(0, 4) %}
+                <div class="col mb-5">
+					<div class="card h-100">
+						<!-- Product image-->
+						{% if product.images is not empty %}
+						<img class="card-img-top" src={{ product.images[0].name }} alt="Image du produit {{ product.name }}"/>
+						{% endif %}
+						<!-- Product details-->
+						<div class="card-body p-4">
+							<div
+								class="text-center">
+								<!-- Product name-->
+								<a  href="{{ path('app_products_details', { 'slug': product.slug }) }}">
+								{# <a  href="{{ path('app_products_details') }}"> #}
+								<h5 class="fw-bolder" >{{ product.name }}</h5>
+								</a>
+								<!-- Product price-->
+								<span class="">${{ product.price }}</span>
+							</div>
+						</div>
+						<!-- Product actions-->
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto" href="{{ path('app_products_details', {'slug': product.slug}) }}">Add to cart</a>
+							</div>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
